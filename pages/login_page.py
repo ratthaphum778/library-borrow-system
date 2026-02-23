@@ -5,6 +5,8 @@ import controller
 def render_login():
     st.title("🔐 เข้าสู่ระบบ")
 
+    st.info("""👨‍🎓 ชื่อ: นายรัฐภูมิ แสนประเสริฐ  🆔 รหัสนักศึกษา: 6740259112  📚 หมู่เรียน: ว.6706""")
+    
     with st.form("login_form"):
         username = st.text_input("ชื่อผู้ใช้", placeholder="เช่น admin")
         password = st.text_input("รหัสผ่าน", type="password", placeholder="เช่น 1234")
