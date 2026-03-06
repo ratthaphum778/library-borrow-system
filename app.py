@@ -6,6 +6,7 @@ from pages import borrow_page
 from pages import report_page
 
 import model
+model.create_default_admin()
 
 # ✅ เพิ่มเติม: import หน้า admin
 from pages import admin_page
@@ -172,3 +173,4 @@ else:
     # fallback
 
     book_page.render_book()
+
