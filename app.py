@@ -6,7 +6,6 @@ from pages import borrow_page
 from pages import report_page
 
 import model
-model.init_db()
 model.create_default_admin()
 
 # ✅ เพิ่มเติม: import หน้า admin
@@ -172,4 +171,5 @@ elif st.session_state.page == "reports":
 
 else:
     # fallback
+
     book_page.render_book()
