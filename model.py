@@ -650,3 +650,25 @@ def get_borrow_report(start_date: str, end_date: str, status: str):
     df = pd.read_sql_query(sql, conn, params=params)
     conn.close()
     return df
+# ==========================================================
+# CREATE DEFAULT ADMIN (teacher)
+# ==========================================================
+def create_default_admin():
+    """สร้าง user อาจารย์ (teacher) ถ้ายังไม่มี"""
+    
+    conn = get_connection()
+    c = conn.cursor()
+
+    c.execute("SELECT COUNT(*) FROM users WHERE username='teacher'")
+    (count,) = c.fetchone()
+
+    if count == 0:
+        c.execute(
+            """
+            INSERT INTO users (username, password_hash, role, is_active)
+            VALUES ('teacher', '1234', 'admin', 1)
+            """
+        )
+
+    conn.commit()
+    conn.close()

@@ -5,6 +5,9 @@ from pages import member_page
 from pages import borrow_page
 from pages import report_page
 
+import model
+
+model.create_default_teacher()
 # ✅ เพิ่มเติม: import หน้า admin
 from pages import admin_page
 
@@ -48,12 +51,31 @@ aside ul:has(a[href*="/borrow_page"]) {display: none !important;}
 # =========================
 # UI
 # =========================
-st.set_page_config(page_title="ระบบยืม-คืนหนังสือ", page_icon="📚")
+# ---------- หน้าแรก (ก่อน Login) ----------
+if "page" not in st.session_state:
+    st.session_state.page = "home"
 
-# ✅ เพิ่มเติม: Login Gate (ถ้ายังไม่ล็อกอินให้ไปหน้า login)
 if not st.session_state["is_logged_in"]:
-    login_page.render_login()
-    st.stop()
+
+    if st.session_state.page == "home":
+        st.title("📚 ระบบยืม-คืนหนังสือ")
+
+        st.info("""
+👨‍🎓 ผู้พัฒนา  
+นายรัฐภูมิ แสนประเสริฐ  
+รหัสนักศึกษา 6740259112  
+หมู่เรียน ว.6706
+""")
+
+        if st.button("🔐 เข้าสู่ระบบ"):
+            st.session_state.page = "login"
+            st.rerun()
+
+        st.stop()
+
+    elif st.session_state.page == "login":
+        login_page.render_login()
+        st.stop()
 
 # ✅ แก้ไขใหม่: ให้ส่วนหัวเว็บทำงานหลัง Login เท่านั้น (เพื่อไม่ให้เห็นหน้าอื่นก่อนล็อกอิน)
 st.title("📚 ระบบยืม-คืนหนังสือ (Streamlit + SQLite)")
